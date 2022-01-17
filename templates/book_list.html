@@ -1,26 +1,61 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Book</title>
+    <title>Shows</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css/' %}"/>
 </head>
 <body>
-<div>
-    <ul>
-        {% for i in book %}
-            <li>
-                <h2><a href="/books/{{ i.id }}/">{{ i.name }}</a></h2>
-                <h2>{{ i.author }}</h2>
+<style>
+    .posts__container {
+        max-width: 900px;
+        margin-bottom: 40px;
+    }
 
-{#                <p> {{ i.description }} </p>#}
-{##}
-{#                <img src="{{ i.image.url }}" alt="">#}
-{#                <br><br>#}
-{#                created date: <h2>{{ i.release_date }}</h2>#}
-{#                update date: <h2>{{ i.update_date }}</h2>#}
-            </li>
+    body {
+        background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+    }
+
+    .post__img {
+        height: 300px;
+        object-fit: cover;
+    }
+
+    .btn-primary {
+       background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(0,2,00,24) 0%, rgba(0,9,0,979) 0%, rgba(0,212,255,1) 100%);
+
+    }
+    .button__container {
+        max-width: 900px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+</style>
+
+
+<div class="container button__container">
+    <a href="/shows/" class="btn btn-primary">Books</a>
+
+</div>
+
+<div class="container posts__container">
+    <div class="row gy-5">
+        {% for book in books %}
+        <div class="col-6">
+            <div class="card">
+                <img src="{{ book.image.url }}" class="card-img-top post__img" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.name }}</h5>
+                    <p class="card-text">{{ book.description }}</p>
+                    <a href="/books/{{ book.id }}/" class="btn btn-primary">Go detail</a>
+                </div>
+            </div>
+        </div>
         {% endfor %}
-    </ul>
+    </div>
 </div>
 </body>
 </html>
