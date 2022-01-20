@@ -15,6 +15,10 @@
     <img src="{{ book.image.url }}" alt="">
     <p>{{ book.release_date }}</p>
     <p>{{ book.update_date }}</p>
+    <div class="card-body body__button">
+        <button type="button" class="btn btn-primary"><a href="/books/{{ book.id }}/update/">*Изменить* {{ book.name }}</a></button>
+        <button type="button" class="btn btn-primary"><a href="/books/{{ book.id }}/delete/">*Удалить*</a></button>
+    </div>
 </div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from . import models, forms
+from django.urls import reverse
 
 
 def shows_all(request):
@@ -25,3 +26,21 @@ def add_show(request):
     else:
         form = forms.ShowForm()
     return render(request, 'add_shows.html', {'form': form})
+def show_update(request, id):
+    show_object = get_object_or_404(models.TVShow, id=id)
+    if request.method == 'POST':
+        form = forms.ShowForm(instance=show_object, data=request.POST)
+        if form.is_valid():
+            form.save()
+            # return HttpResponse('Show updated Seccessfully')
+            return redirect(reverse("shows:shows_all"))
+    else:
+        form = forms.ShowForm(instance=show_object)
+    return render(request, 'show_update.html', {'form': form,'object': show_object})
+
+
+def show_delete(request, id):
+    show_object = get_object_or_404(models.TVShow, id=id)
+    show_object.delete()
+    return HttpResponse('Удалено')
+
